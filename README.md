@@ -1,99 +1,59 @@
-# 💳 Credit Card Fraud Detection
+# Credit Card Fraud Detection 🕵️‍♂️💳
 
-A machine learning project to detect fraudulent credit card transactions using a logistic regression model. This project leverages real-world anonymized data from European cardholders in September 2013.
-
----
+This project tackles the problem of detecting fraudulent credit card transactions using machine learning. The dataset is highly imbalanced, making fraud detection a non-trivial task that requires careful preprocessing and model evaluation.
 
 ## 📂 Dataset
 
-- **Source**: [Kaggle - Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
-- **Records**: 284,807 transactions
-- **Frauds**: 492 (~0.17%)
-- **Features**: 30
-  - `V1` to `V28`: Anonymized via PCA
-  - `Time` and `Amount`: Original features
-  - `Class`: Target (0 = Legit, 1 = Fraud)
+- **Source:** [Kaggle - Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+- **Records:** 284,807 transactions
+- **Features:** 30 total (28 anonymized PCA components + `Time` + `Amount`)
+- **Target Variable:**
+  - `0` → Legitimate
+  - `1` → Fraudulent
 
----
+## 🎯 Objective
 
-## ⚙️ Technologies Used
+To build a model that identifies fraudulent transactions with high accuracy while accounting for extreme class imbalance.
 
-- Python (Jupyter Notebook)
-- NumPy, Pandas
-- Scikit-learn
-- Logistic Regression
+## 🔄 Workflow Summary
 
----
+### 📊 Data Exploration
+- Loaded dataset using Pandas
+- Checked for null values
+- Analyzed class distribution (highly imbalanced)
+- Separated legitimate and fraudulent transactions for comparative statistics
 
-## 🧠 Workflow
+### 🧹 Preprocessing
+- No missing data treatment required
+- Stratified sampling of legitimate transactions to balance the dataset
+- Used `train_test_split` to divide data into training and test sets
 
-### 1. **Data Exploration**
-- Checked for missing values (none)
-- Separated legitimate and fraudulent transactions
-- Visualized value distributions and stats
+### 🧠 Model Used
+- **Logistic Regression** as the baseline model
 
-### 2. **Data Balancing**
-- Random undersampling of legitimate transactions to match the number of frauds
-- Combined for a balanced dataset with equal fraud and legit samples
+### 📈 Evaluation Metrics
+- **Accuracy Score**
 
-### 3. **Modeling**
-- Model: `LogisticRegression`
-- Training/Test Split: 80/20 using stratified sampling
-- Accuracy evaluated on both training and test sets
+> ⚠️ Note: No advanced metrics like AUC, Precision, or Recall were used yet, which are critical in fraud detection tasks.
 
----
+## 🛠️ Requirements
 
-## 📈 Results
+Make sure you have the following Python libraries installed:
 
-| Metric              | Score     |
-|---------------------|-----------|
-| Training Accuracy   | ~94%      |
-| Test Accuracy       | ~91%      |
-| Balanced Dataset    | 206 rows  |
-
-⚠️ Note: Accuracy is not the best metric for imbalanced datasets — future improvements can involve precision, recall, F1-score, and ROC-AUC.
-
----
-
-## 🔮 Predicting New Transactions
-
-To use the model for a custom transaction:
-
-```python
-import numpy as np
-
-# Replace with 30 feature values from a transaction
-input_data = (0.1, -0.2, ..., 1.23)  # 30 values
-
-input_data_as_numpy_array = np.asarray(input_data).reshape(1, -1)
-prediction = model.predict(input_data_as_numpy_array)
-
-if prediction[0] == 1:
-    print("⚠️ Fraudulent transaction detected.")
-else:
-    print("✅ Legitimate transaction.")
+```bash
+pip install numpy pandas scikit-learn
 ```
 
----
+## 🚀 How to Run
 
-## 🚀 Future Improvements
+1. Download the dataset from [Kaggle](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+2. Place the CSV in the appropriate directory (`/content/creditcard.csv` or update path in the notebook)
+3. Run the notebook:
 
-- Try more powerful models: Random Forest, XGBoost, SVM
-- Handle class imbalance with SMOTE or ADASYN
-- Visualize ROC curves and confusion matrices
-- Deploy as a web app or REST API
+```bash
+jupyter notebook CreditCardFraudDetection.ipynb
+```
+## 📚 References
 
----
-
-## 🧑‍💻 Author
-
-Abinaya Goud
-abinayagoud23@gmail.com
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License.
-
-
+- [Original Dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+- [Scikit-learn Documentation](https://scikit-learn.org/stable/documentation.html)
